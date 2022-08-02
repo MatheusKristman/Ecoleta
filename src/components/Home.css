@@ -1,0 +1,240 @@
+.home-container {
+    position: relative;
+    background-color: #F0F0F5;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.home-background {
+    position: absolute;
+    width: 55%;
+    z-index: 9;
+    bottom: 0;
+    right: 0;
+}
+
+.home-header {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 45px;
+}
+
+.home-link {
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    color: #322153;
+    height: 100%;
+    outline: none;
+}
+
+.home-link-mobile {
+    display: none;
+    outline: none;
+}
+
+.home-arrow {
+    height: 25px;
+    vertical-align: middle;
+    margin-right: 20px;
+}
+
+.home-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+    width: 80%;
+    margin-bottom: 150px;
+    z-index: 99;
+    align-self: center;
+}
+
+.home-info {
+    width: 560px;
+}
+
+.home-info-title {
+    font-size: 3.375rem;
+    font-weight: 700;
+    color: #322153;
+    font-family: 'Ubuntu', sans-serif;
+    margin-top: 90px;
+    margin-bottom: 25px;
+}
+
+.home-info-desc {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #6C6C80;
+    width: 450px;
+    margin-bottom: 40px;
+}
+
+.home-info-btn {
+    display: flex;
+    align-items: center;
+    width: 350px;
+}
+
+.home-info-btn-f-half {
+    height: 72px;
+    width: 72px;
+    background-color: #2FB86E;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    cursor: pointer;
+}
+
+.home-info-btn-l-half {
+    height: 72px;
+    width: 100%;
+    background-color: #34CB79;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.home-info-btn-f-half:hover+.home-info-btn-l-half {
+    background-color: #2FB86E;
+}
+
+.home-info-btn-l-half:hover {
+    background-color: #2FB86E;
+}
+
+@media screen and (max-width: 1200px) {
+    .home-container {
+        justify-content: flex-start;
+    }
+
+    .home-background {
+        width: 100%;
+    }
+
+    .home-wrapper {
+        flex-direction: column-reverse;
+        gap: 0;
+        align-items: center;
+        margin-bottom: 50px;
+        margin-top: 50px;
+    }
+
+    .home-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .home-info-title {
+        margin-top: 40px;
+        text-align: center;
+    }
+
+    .home-info-desc {
+        text-align: center;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .home-header {
+        margin-top: 25px;
+    }
+
+    .home-logo {
+        width: 120px;
+    }
+
+    .home-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 50px;
+    }
+
+    .home-image-people {
+        width: 60%;
+    }
+
+    .home-info-title {
+        font-size: 2rem;
+    }
+
+    .home-info-desc {
+        font-size: 1.1rem;
+    }
+
+    .home-info-btn {
+        width: 250px;
+    }
+
+    .home-info-btn-f-half,
+    .home-info-btn-l-half {
+        height: 50px;
+    }
+
+    .home-info-btn-l-half {
+        font-size: 0.85rem;
+        font-weight: 400;
+    }
+}
+
+@media screen and (max-width: 570px) {
+    .home-header {
+        width: 90%;
+    }
+
+    .home-link {
+        display: none;
+    }
+
+    .home-link-mobile {
+        display: block;
+    }
+
+    .home-arrow {
+        height: 30px;
+    }
+}
+
+@media screen and (max-width: 370px) {
+    .home-image-people {
+        width: 90%;
+    }
+
+    .home-info-title {
+        font-size: 1.6rem;
+    }
+
+    .home-info-desc {
+        font-size: 1rem;
+    }
+
+    .home-info-btn {
+        width: 200px;
+    }
+
+    .home-info-btn-f-half {
+        display: none;
+    }
+
+    .home-info-btn-l-half {
+        border-radius: 10px;
+    }
+}

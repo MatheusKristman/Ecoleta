@@ -1,0 +1,159 @@
+.list-container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.list-background {
+    position: absolute;
+    width: 100%;
+    height: 35%;
+    background-color: #f0f0f5;
+    z-index: 9;
+}
+
+.list-header {
+    position: relative;
+    width: 80%;
+    z-index: 99;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 45px;
+}
+
+.list-link {
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    color: #322153;
+    height: 100%;
+}
+
+.list-link-mobile {
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    color: #322153;
+    height: 100%;
+    display: none;
+}
+
+.list-arrow {
+    height: 25px;
+    vertical-align: middle;
+    margin-right: 20px;
+}
+
+.list-box {
+    position: relative;
+    margin-top: 65px;
+    z-index: 99;
+    width: 80%;
+}
+
+.list-found {
+    font-size: 1rem;
+    color: #6C6C80;
+    margin-bottom: 40px;
+    text-transform: capitalize;
+}
+
+.list-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.list-result {
+    width: 350px;
+    margin-bottom: 50px;
+}
+
+.list-result-image {
+    width: 100%;
+    height: 260px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.list-result-title {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #322153;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+}
+
+.list-result-categ {
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 34px;
+    color: #34CB79;
+    width: 250px;
+    margin-bottom: 20px;
+}
+
+.list-result-location {
+    font-size: 1rem;
+    line-height: 26px;
+    color: #6C6C80;
+    text-transform: capitalize;
+}
+
+@media screen and (max-width: 913px) {
+    .list-wrapper {
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .list-link {
+        display: none;
+    }
+
+    .list-link-mobile {
+        display: block;
+    }
+
+    .list-arrow {
+        height: 30px;
+    }
+
+    .list-result-categ {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 310px) {
+    .list-logo {
+        width: 130px;
+    }
+
+    .list-arrow {
+        margin-right: 0;
+    }
+
+    .list-header {
+        width: 90%;
+        margin-top: 25px;
+    }
+
+    .list-result {
+        width: 100%;
+    }
+
+    .list-result-title {
+        font-size: 2rem;
+    }
+
+    .list-result-categ {
+        font-size: 1.1rem;
+    }
+
+    .list-result-location {
+        font-size: 0.8rem;
+    }
+}
