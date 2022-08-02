@@ -1,3 +1,7 @@
+# Ecoleta ReactJS
+
+Esse é um projeto feito com ReactJS, onde é um site para encontrar e cadastrar pontos de coleta.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
