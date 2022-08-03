@@ -11,13 +11,8 @@ import eco6 from '../images/eco6.jpg';
 import notfoundImage from '../images/notfound.png';
 import './List.css';
 
-const List = (props) => {
-    // const [searchResult, setSearchResult] = useState({
-    //     searchState: '',
-    //     searchCity: ''
-    // })
+const List = () => {    
     const [ecoPoint, setEcoPoint] = useState([]);
-    const [category, setCategory] = useState('');
     const [hasEcoPoint, setHasEcoPoint] = useState(false);
     const [image, setImage] = useState([eco1, eco2, eco3, eco4, eco5, eco6]);
 

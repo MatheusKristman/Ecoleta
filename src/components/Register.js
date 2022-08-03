@@ -42,7 +42,6 @@ const Register = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(isClicked['Resìduos Eletrônicos']);
     if (Object.keys(error).length === 0 && isSubmit) {
       const saveData = JSON.parse(localStorage.getItem('ecoPoint')) || [];
       saveData.push(data);

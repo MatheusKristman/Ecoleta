@@ -28,7 +28,6 @@ const Search = (props) => {
     async function fetchData() {
       const dataFetch = await JSON.parse(localStorage.getItem('ecoPoint'));
       setData(dataFetch);     
-      console.log(dataFetch);
     }
     fetchData();
   }, [])
@@ -113,9 +112,8 @@ const Search = (props) => {
 
   const onSearch = (e) => {
     e.preventDefault();
-    if(stateInput.current.value.length > 2 && cityInput.current.value.length > 2){      
-      searchError.errorState = '';
-      searchError.errorCity = '';
+    if(stateInput.current.value.length > 2 && cityInput.current.value.length > 2){
+      setSearchError({ errorState: '', errorCity: '' });    
       stateInput.current.style.border = 'none';
       cityInput.current.style.border = 'none';
       
@@ -130,8 +128,7 @@ const Search = (props) => {
       localStorage.setItem('result', JSON.stringify(resultData));
       navigate('/list');
     } else {
-      searchError.errorState = 'Estado Invalido! Insira sem abreviação.';
-      searchError.errorCity = 'Cidade Invalida! Insira sem abreviação.';
+      setSearchError({ errorState: 'Estado Invalido! Insira sem abreviação.', errorCity: 'Cidade Invalida! Insira sem abreviação.' });      
       stateInput.current.style.border = '2px solid red';
       cityInput.current.style.border = '2px solid red';
       stateInput.current.value = '';
