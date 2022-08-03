@@ -26,8 +26,8 @@ const Search = (props) => {
 
   useEffect(() => {
     async function fetchData() {
-      const dataFetch = await JSON.parse(localStorage.getItem('ecoPoint'));
-      setData(dataFetch);     
+      const dataFetch = await JSON.parse(localStorage.getItem('ecoPoint')) || [];
+      setData(dataFetch);
     }
     fetchData();
   }, [])

@@ -162,7 +162,6 @@ const Register = () => {
   };
 
   const handleSubmit = () => {
-    console.log('clicado');
     let newElements = Object.entries(isClicked);
     newElements = newElements.filter(([key, value]) => value === true).map(([key, value]) => key);
     data.categ = newElements;
