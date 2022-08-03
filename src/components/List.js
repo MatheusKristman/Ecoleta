@@ -71,7 +71,7 @@ const List = (props) => {
                             </div>
                         ))
                     ) : (
-                        <h1>não tem</h1>
+                        <h1 className='notfound-result'>nenhum ponto de coleta encontrado</h1>
                     )}
                     {/* <div className='list-result'>
                         <img src={eco1} alt='eco' className='list-result-image' />

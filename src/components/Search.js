@@ -181,16 +181,18 @@ const Search = (props) => {
               placeholder='Digite o cidade'
               onChange={changeBorderCity}
               ref={cityInput}
-            />
-            <div className='data-result-city'>
-              {isFilteredCity.slice(0, 15).map((value, key) => {
-                return (
-                  <div className='data-result-city-item' onClick={onChangeInputValueCity} key={key}>
-                    {value}
-                  </div>
-                );
-              })}
-            </div>
+              />
+            {isFilteredCity.length !== 0 && (
+              <div className='data-result-city'>
+                {isFilteredCity.slice(0, 15).map((value, key) => {
+                  return (
+                    <div className='data-result-city-item' onClick={onChangeInputValueCity} key={key}>
+                      {value}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
           <button className='search-btn' onClick={onSearch}>
             Buscar
