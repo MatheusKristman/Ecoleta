@@ -8,6 +8,7 @@ import eco3 from '../images/eco3.jpg';
 import eco4 from '../images/eco4.jpg';
 import eco5 from '../images/eco5.jpg';
 import eco6 from '../images/eco6.jpg';
+import notfoundImage from '../images/notfound.png';
 import './List.css';
 
 const List = (props) => {
@@ -21,6 +22,7 @@ const List = (props) => {
     const [image, setImage] = useState([eco1, eco2, eco3, eco4, eco5, eco6]);
 
     useEffect(() => {
+        document.body.style.overflow = 'auto';
         async function fetchData() {           
 
             const ecoData = await JSON.parse(localStorage.getItem('result'));
@@ -56,7 +58,7 @@ const List = (props) => {
                     <strong>{hasEcoPoint ? (`${ecoPoint.length} ${ecoPoint.length > 1 ? 'pontos' : 'ponto'}`) : (`0 pontos`)}</strong> {`${ecoPoint.length > 1 ? 'encontrados' : 'encontrado'}`}
                 </p>
 
-                <div className='list-wrapper'>
+                <div className={hasEcoPoint ? 'list-wrapper' : 'list-wrapper nf'}>
                     {hasEcoPoint === true ? (
                         ecoPoint.map((data, key) => (
                             <div className='list-result' key={key}>
@@ -71,99 +73,11 @@ const List = (props) => {
                             </div>
                         ))
                     ) : (
-                        <h1 className='notfound-result'>nenhum ponto de coleta encontrado</h1>
-                    )}
-                    {/* <div className='list-result'>
-                        <img src={eco1} alt='eco' className='list-result-image' />
-
-                        <h1 className='list-result-title'>Colectoria</h1>
-
-                        <h4 className='list-result-categ'>Residuos Eletrônicos, Lâmpadas</h4>
-
-                        <p className='list-result-location'>
-                            Rio do Sul, Santa Catarina <br />
-                            Guilherme Gemballa, Jardim América <br />
-                            Nº 260
-                        </p>
-                    </div>
-                    <div className='list-result'>
-                        <img src={eco2} alt='eco' className='list-result-image' />
-
-                        <h1 className='list-result-title'>Paperside</h1>
-
-                        <h4 className='list-result-categ'>Papéis e papelão</h4>
-
-                        <p className='list-result-location'>
-                            Rio do Sul, Santa Catarina <br />
-                            Guilherme Gemballa, Jardim América <br />
-                            Nº 260
-                        </p>
-                    </div>
-                    <div className='list-result'>
-                        <img src={eco2} alt='eco' className='list-result-image' />
-
-                        <h1 className='list-result-title'>Paperside</h1>
-
-                        <h4 className='list-result-categ'>Papéis e papelão</h4>
-
-                        <p className='list-result-location'>
-                            Rio do Sul, Santa Catarina <br />
-                            Guilherme Gemballa, Jardim América <br />
-                            Nº 260
-                        </p>
-                    </div>
-                    <div className='list-result'>
-                        <img src={eco2} alt='eco' className='list-result-image' />
-
-                        <h1 className='list-result-title'>Paperside</h1>
-
-                        <h4 className='list-result-categ'>Papéis e papelão</h4>
-
-                        <p className='list-result-location'>
-                            Rio do Sul, Santa Catarina <br />
-                            Guilherme Gemballa, Jardim América <br />
-                            Nº 260
-                        </p>
-                    </div>
-                    <div className='list-result'>
-                        <img src={eco2} alt='eco' className='list-result-image' />
-
-                        <h1 className='list-result-title'>Paperside</h1>
-
-                        <h4 className='list-result-categ'>Papéis e papelão</h4>
-
-                        <p className='list-result-location'>
-                            Rio do Sul, Santa Catarina <br />
-                            Guilherme Gemballa, Jardim América <br />
-                            Nº 260
-                        </p>
-                    </div>
-                    <div className='list-result'>
-                        <img src={eco2} alt='eco' className='list-result-image' />
-
-                        <h1 className='list-result-title'>Paperside</h1>
-
-                        <h4 className='list-result-categ'>Papéis e papelão</h4>
-
-                        <p className='list-result-location'>
-                            Rio do Sul, Santa Catarina <br />
-                            Guilherme Gemballa, Jardim América <br />
-                            Nº 260
-                        </p>
-                    </div>
-                    <div className='list-result'>
-                        <img src={eco2} alt='eco' className='list-result-image' />
-
-                        <h1 className='list-result-title'>Paperside</h1>
-
-                        <h4 className='list-result-categ'>Papéis e papelão</h4>
-
-                        <p className='list-result-location'>
-                            Rio do Sul, Santa Catarina <br />
-                            Guilherme Gemballa, Jardim América <br />
-                            Nº 260
-                        </p>
-                    </div> */}
+                        <div className='notfound-result'>
+                            <img src={notfoundImage} alt='not found' className='notfound-image' />
+                            <h1 className='notfound-title'>nenhum ponto de coleta encontrado</h1>
+                        </div>
+                    )}                    
                 </div>
             </section>
         </div>

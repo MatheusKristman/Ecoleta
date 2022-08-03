@@ -113,7 +113,7 @@ const Search = (props) => {
 
   const onSearch = (e) => {
     e.preventDefault();
-    if(stateInput.current.value.length > 2 && cityInput.current.value.length > 2){
+    if(stateInput.current.value.length > 2 && cityInput.current.value.length > 2){      
       searchError.errorState = '';
       searchError.errorCity = '';
       stateInput.current.style.border = 'none';
@@ -128,7 +128,6 @@ const Search = (props) => {
       const resultData = data.filter(result => result.city.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase() === searchDataSave.searchCity.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase());
       localStorage.removeItem('result');
       localStorage.setItem('result', JSON.stringify(resultData));
-      props.setIsClicked(false);
       navigate('/list');
     } else {
       searchError.errorState = 'Estado Invalido! Insira sem abreviação.';
