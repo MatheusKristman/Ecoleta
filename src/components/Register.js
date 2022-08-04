@@ -33,15 +33,13 @@ const Register = () => {
     'Resíduos Orgânicos': false,
     'Óleo de Cozinha': false
   });
-  const [isFilteredState, setIsFilteredState] = useState([]);
-  const [isFilteredCity, setIsFilteredCity] = useState([]);
 
-  const stateInputRegister = useRef();
-  const cityInputRegister = useRef();
+  const stateSelectRegister = useRef();
 
   const navigate = useNavigate();
 
   useEffect(() => {
+    
     if (Object.keys(error).length === 0 && isSubmit) {
       const saveData = JSON.parse(localStorage.getItem('ecoPoint')) || [];
       saveData.push(data);
@@ -56,66 +54,12 @@ const Register = () => {
     }
   }, [error]);
 
+  const estado = data.state !== '' ? Data.estados.filter((value) => value.nome.includes(data.state)) : [];
+
   const onInputChange = (e) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
   };
-
-  const changeBorderState = (e) => {
-    const searchWord = e.target.value;
-    const newFilter = Data.estados.filter((value) => {
-      return value.nome
-        .normalize('NFD')
-        .replace(/\p{Diacritic}/gu, '')
-        .toLowerCase()
-        .includes(
-          searchWord
-            .normalize('NFD')
-            .replace(/\p{Diacritic}/gu, '')
-            .toLowerCase()
-        );
-    });
-
-    if (searchWord !== '') {
-      setIsFilteredState(newFilter);
-    } else {
-      setIsFilteredState([]);
-    }
-  };
-
-  const changeBorderCity = (e) => {
-    const searchWord = e.target.value;
-    const estado = Data.estados.filter((value) =>
-      value.nome
-        .normalize('NFD')
-        .replace(/\p{Diacritic}/gu, '')
-        .toLowerCase()
-        .includes(
-          stateInputRegister.current.value
-            .normalize('NFD')
-            .replace(/\p{Diacritic}/gu, '')
-            .toLowerCase()
-        )
-    );
-    const newFilter = estado[0].cidades.filter((value) =>
-      value
-        .normalize('NFD')
-        .replace(/\p{Diacritic}/gu, '')
-        .toLowerCase()
-        .includes(
-          searchWord
-            .normalize('NFD')
-            .replace(/\p{Diacritic}/gu, '')
-            .toLowerCase()
-        )
-    );
-
-    if (e.target.value !== '') {
-      setIsFilteredCity(newFilter);
-    } else {
-      setIsFilteredCity([]);
-    }
-  };  
 
   const handleSelect = (element) => {
     switch (element) {
@@ -142,25 +86,6 @@ const Register = () => {
     }
   };
 
-  const onBlurResults = () => {
-    setTimeout(() => {
-      setIsFilteredState([]);
-      setIsFilteredCity([]);
-    }, 500);
-  };
-
-  const onChangeInputValueState = (e) => {    
-    const resultValue = e.target.textContent;
-    stateInputRegister.current.value = resultValue;
-    setData({ ...data, state: resultValue });
-  };
-
-  const onChangeInputValueCity = (e) => {
-    const resultValue = e.target.textContent;
-    cityInputRegister.current.value = resultValue;
-    setData({...data, city: resultValue});
-  };
-
   const handleSubmit = () => {
     let newElements = Object.entries(isClicked);
     newElements = newElements.filter(([key, value]) => value === true).map(([key, value]) => key);
@@ -172,7 +97,7 @@ const Register = () => {
   return (
     <>
       {successful && <Success />}
-      <div className='register-container' onBlur={onBlurResults}>
+      <div className='register-container'>
         <header className='register-header'>
           <img src={logo} alt='logo' className='register-logo' />
 
@@ -239,57 +164,27 @@ const Register = () => {
             <div className='register-box-input-wrapper'>
               <div className='register-box-state'>
                 <small className='register-box-small'>Estado</small>
-                <input
-                  type='text'
-                  name='state'
-                  className={
-                    error.state ? 'register-box-input-state error' : 'register-box-input-state'
-                  }
-                  onChange={changeBorderState}                  
-                  ref={stateInputRegister}
-                />
-                {isFilteredState.length !== 0 && (
-                  <div className='state-sugestion'>
-                    {isFilteredState.slice(0, 15).map((value, key) => {
-                      return (
-                        <div
-                        className='state-sugestion-item'
-                        onClick={onChangeInputValueState}
-                        key={key}
-                        >
-                          {value.nome}
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
+                <select name='state' ref={stateSelectRegister} className={error.state ? 'register-box-select-state error' : 'register-box-select-state'} onChange={onInputChange}>
+                  {Data.estados.map((state, key) => (
+                    <option key={key} value={state.nome} className='state-sugestion-item'>{state.nome}</option>
+                  ))}
+                </select>                
                 <small className='error-small'>{error.state}</small>
               </div>
 
               <div className='register-box-city'>
                 <small className='register-box-small'>Cidade</small>
-                <input
-                  type='text'
-                  name='city'
-                  className={
-                    error.city ? 'register-box-input-city error' : 'register-box-input-city'
-                  }
-                  onChange={changeBorderCity}
-                  ref={cityInputRegister}
-                />                
-                <div className='city-sugestion'>
-                  {isFilteredCity.slice(0, 15).map((value, key) => {
-                    return (
-                      <div
-                      className='city-sugestion-item'
-                      onClick={onChangeInputValueCity}
-                      key={key}
-                      >
-                        {value}
-                      </div>
+                <select name='city' onChange={onInputChange} className={error.city ? 'register-box-select-city error' : 'register-box-select-city'}>
+                  {
+                    data.state !== '' ? (
+                      estado[0].cidades.map((city, key) => (
+                        <option key={key} value={city} className='city-sugestion-item'>{city}</option>
+                      ))
+                    ) : (
+                      null
                     )
-                  })}                 
-                </div>
+                  }
+                </select>
                 <small className='error-small'>{error.city}</small>
               </div>
             </div>            

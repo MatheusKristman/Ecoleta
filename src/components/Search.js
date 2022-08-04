@@ -6,17 +6,17 @@ import './Search.css';
 import Data from '../Data.json';
 
 const Search = (props) => {
-  const [bordersState, setBordersState] = useState(false);
-  const [bordersCity, setBordersCity] = useState(false);
-  const [isFilteredState, setIsFilteredState] = useState([]);
-  const [isFilteredCity, setIsFilteredCity] = useState([]);
+  const [isFilteredState, setIsFilteredState] = useState('');
   const [data, setData] = useState([]);
   const [searchError, setSearchError] = useState({
-    errorState: '',
-    errorCity: ''
+    errorState: false,
+    errorCity: false
   })
   const stateInput = useRef();
   const cityInput = useRef();
+  
+  const estadoFilter = isFilteredState !== '' ? Data.estados.filter((state) => state.nome.includes(stateInput.current.value)) : [];
+  console.log(estadoFilter)
 
   const navigate = useNavigate();
 
@@ -30,92 +30,12 @@ const Search = (props) => {
       setData(dataFetch);
     }
     fetchData();
-  }, [])
-
-  const changeBorderState = (e) => {
-    const searchWord = e.target.value;
-    const newFilter = Data.estados.filter((value) => {
-      return value.nome
-        .normalize('NFD')
-        .replace(/\p{Diacritic}/gu, '')
-        .toLowerCase()
-        .includes(
-          searchWord
-            .normalize('NFD')
-            .replace(/\p{Diacritic}/gu, '')
-            .toLowerCase()
-        );
-    });
-
-    if (searchWord !== '') {
-      setBordersState(true);
-      setIsFilteredState(newFilter);
-    } else {
-      setBordersState(false);
-      setIsFilteredState([]);
-    }
-  };
-
-  const changeBorderCity = (e) => {
-    const searchWord = e.target.value;
-    const estado = Data.estados.filter((value) =>
-      value.nome
-        .normalize('NFD')
-        .replace(/\p{Diacritic}/gu, '')
-        .toLowerCase()
-        .includes(
-          stateInput.current.value
-            .normalize('NFD')
-            .replace(/\p{Diacritic}/gu, '')
-            .toLowerCase()
-        )
-    );
-    const newFilter = estado[0].cidades.filter((value) =>
-      value
-        .normalize('NFD')
-        .replace(/\p{Diacritic}/gu, '')
-        .toLowerCase()
-        .includes(
-          searchWord
-            .normalize('NFD')
-            .replace(/\p{Diacritic}/gu, '')
-            .toLowerCase()
-        )
-    );
-
-    if (e.target.value !== '') {
-      setBordersCity(true);
-      setIsFilteredCity(newFilter);
-    } else {
-      setBordersCity(false);
-      setIsFilteredCity([]);
-    }
-  };
-
-  const onBlurResults = () => {
-    setBordersState(false);
-    setIsFilteredState([]);
-
-    setBordersCity(false);
-    setIsFilteredCity([]);
-  };
-
-  const onChangeInputValueState = (e) => {
-    const resultValue = e.target.textContent;
-    stateInput.current.value = resultValue;
-  };
-
-  const onChangeInputValueCity = (e) => {
-    const resultValue = e.target.textContent;
-    cityInput.current.value = resultValue;
-  };
+  }, []);   
 
   const onSearch = (e) => {
     e.preventDefault();
-    if(stateInput.current.value.length > 2 && cityInput.current.value.length > 2){
-      setSearchError({ errorState: '', errorCity: '' });    
-      stateInput.current.style.border = 'none';
-      cityInput.current.style.border = 'none';
+    if(stateInput.current.value !== '' && cityInput.current.value !== ''){
+      setSearchError({ errorState: false, errorCity: false });    
       
       const searchDataSave = {
         searchState: stateInput.current.value,
@@ -123,72 +43,50 @@ const Search = (props) => {
       };
 
       localStorage.setItem('searchData', JSON.stringify(searchDataSave));
-      const resultData = data.filter(result => result.city.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase() === searchDataSave.searchCity.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase());
+      const resultData = data.filter(result => result.city === searchDataSave.searchCity);
       localStorage.removeItem('result');
       localStorage.setItem('result', JSON.stringify(resultData));
       navigate('/list');
     } else {
-      setSearchError({ errorState: 'Estado Invalido! Insira sem abreviação.', errorCity: 'Cidade Invalida! Insira sem abreviação.' });      
-      stateInput.current.style.border = '2px solid red';
-      cityInput.current.style.border = '2px solid red';
-      stateInput.current.value = '';
-      cityInput.current.value = '';
+      if(stateInput.current.value === ''){
+        setSearchError({ ...searchError, errorState: true });
+      }
+
+      if(cityInput.current.value === ''){
+        setSearchError({ ...searchError, errorCity: true });
+      }
     }
   };
 
   return (
     <IconContext.Provider value={{ size: '2rem', color: 'white' }}>
-      <div className='search-container' onClick={onBlurResults}>
+      <div className='search-container' >
         <AiOutlineClose className='search-close' onClick={handleClose} />
         <h1 className='search-title'>Pontos de coleta</h1>
 
         <form className='search-form'>
           <div className='search-state'>
-            {searchError.errorState && <small className='search-error-small'>{searchError.errorState}</small>}
-            <input
-              type='text'
-              className={bordersState ? 'search-input-state borders' : 'search-input-state'}
-              placeholder='Digite a estado'
-              onChange={changeBorderState}
-              ref={stateInput}
-            />
-            {isFilteredState.length !== 0 && (
-              <div className='data-result-state'>
-                {isFilteredState.slice(0, 15).map((value, key) => {
-                  return (
-                    <div
-                      className='data-result-state-item'
-                      onClick={onChangeInputValueState}
-                      key={key}
-                    >
-                      {value.nome}
-                    </div>
-                  );
-                })}
-              </div>
-            )}
+            <small className='search-small'>Estado</small>
+            <select name='state' className={searchError.errorState ? 'search-select-state error-search' : 'search-select-state'} onChange={e => setIsFilteredState(e.target.value)} ref={stateInput}>
+              {Data.estados.map((state, key) => (
+                <option key={key} value={state.nome} className='data-result-state-item'>{state.nome}</option>
+              ))}
+            </select>            
           </div>
 
           <div className='search-city'>
-            {searchError.errorCity && <small className='search-error-small'>{searchError.errorCity}</small>}
-            <input
-              type='text'
-              className={bordersCity ? 'search-input-city borders' : 'search-input-city'}
-              placeholder='Digite o cidade'
-              onChange={changeBorderCity}
-              ref={cityInput}
-              />
-            {isFilteredCity.length !== 0 && (
-              <div className='data-result-city'>
-                {isFilteredCity.slice(0, 15).map((value, key) => {
-                  return (
-                    <div className='data-result-city-item' onClick={onChangeInputValueCity} key={key}>
-                      {value}
-                    </div>
-                  );
-                })}
-              </div>
-            )}
+            <small className='search-small'>Cidade</small>
+            <select name='city' className={searchError.errorCity ? 'search-select-city error-search' : 'search-select-city'} ref={cityInput}>
+              {
+                isFilteredState !== '' ? (
+                  estadoFilter[0].cidades.map((city, key) => (
+                    <option key={key} value={city} className='data-result-city-item'>{city}</option>
+                  ))
+                ) : (
+                  null
+                )
+              }
+            </select>            
           </div>
           <button className='search-btn' onClick={onSearch}>
             Buscar
