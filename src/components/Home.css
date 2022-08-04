@@ -206,10 +206,22 @@
 
     .home-link-mobile {
         display: block;
+        text-decoration: none;     
     }
 
-    .home-arrow {
-        height: 30px;
+    .home-link-btn {
+        padding: 10px 30px;
+        background-color: #2FB86E;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        font-size: 0.8rem;
+        font-weight: 400;
+        font-family: 'Roboto', sans-serif;
+        color: #fff;
     }
 }
 

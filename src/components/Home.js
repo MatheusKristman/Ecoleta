@@ -40,7 +40,7 @@ const Home = (props) => {
           </Link>
 
           <Link to='/register' className='home-link-mobile'>
-            <img src={arrow} alt='arrow' className='home-arrow' />
+            <button className='home-link-btn'>Cadastrar</button>
           </Link>
         </header>
 
