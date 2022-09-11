@@ -40,7 +40,7 @@ const List = () => {
 
                 <Link to='/' className='list-link'>
                     <img src={back} alt='back' className='list-arrow' />
-                    Voltar pra home
+                    Voltar para home
                 </Link>
 
                 <Link to='/' className='list-link-mobile'>
@@ -70,7 +70,7 @@ const List = () => {
                     ) : (
                         <div className='notfound-result'>
                             <img src={notfoundImage} alt='not found' className='notfound-image' />
-                            <h1 className='notfound-title'>nenhum ponto de coleta encontrado</h1>
+                            <h1 className='notfound-title'>Nenhum ponto de coleta encontrado.</h1>
                         </div>
                     )}                    
                 </div>
